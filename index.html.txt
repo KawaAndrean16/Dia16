@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>3 Anos com Minha Branca 🤍✨</title>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Inter:wght@300;400;600&display=swap" rel="stylesheet" />
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{--night:#05040a;--rose:#e8a4c0;--blush:#f5c6d8;--white:#fdfcff;--lilac:#c4aadc;--gold:#f3e5ab}
+    html{scroll-behavior:smooth}
+    body{background:var(--night);color:var(--white);font-family:'Inter',sans-serif;font-weight:300;overflow-x:hidden}
+
+    #stars-canvas{position:fixed;inset:0;z-index:0;pointer-events:none}
+    .hearts-bg{position:fixed;inset:0;z-index:1;pointer-events:none;overflow:hidden}
+    .heart-particle{position:absolute;bottom:-60px;font-size:1.2rem;animation:floatHeart linear infinite;opacity:0}
+    @keyframes floatHeart{0%{transform:translateY(0) rotate(0deg) scale(0.8);opacity:0}10%{opacity:0.6}90%{opacity:0.3}100%{transform:translateY(-110vh) rotate(25deg) scale(1.1);opacity:0}}
+
+    main{position:relative;z-index:2;max-width:1100px;margin:0 auto;padding:0 1.5rem 8rem}
+
+    /* HERO SECTION */
+    .hero{min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:4rem 1rem;position:relative}
+    .hero-eyebrow{font-size:0.7rem;letter-spacing:0.35em;text-transform:uppercase;color:var(--lilac);margin-bottom:1.5rem;opacity:0;animation:fadeUp 1s 0.3s forwards}
+    
+    .hero-title{font-family:'Great Vibes',cursive;font-size:clamp(3.5rem,11vw,7.5rem);color:var(--white);line-height:1.1;text-shadow:0 0 60px rgba(232,164,192,0.4);opacity:0;animation:fadeUp 1s 0.6s forwards;user-select:none;display:flex;gap:0.3rem;flex-wrap:wrap;justify-content:center;position:relative}
+    .hero-title span{display:inline-block;cursor:pointer;transition:all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)}
+    .hero-title span:hover{transform:scale(1.35) translateY(-10px) rotate(8deg);color:var(--blush);text-shadow:0 0 25px var(--rose)}
+    
+    .secret-star-trigger {
+      font-size: 1.2rem;
+      cursor: pointer;
+      opacity: 0.15;
+      transition: opacity 0.5s, transform 0.3s;
+      display: inline-block;
+      margin-left: 5px;
+      vertical-align: middle;
+    }
+    .secret-star-trigger:hover {
+      opacity: 1;
+      transform: scale(1.3) rotate(15deg);
+      text-shadow: 0 0 10px var(--gold);
+    }
+
+    .hero-subtitle{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(1rem,3vw,1.5rem);color:var(--blush);margin-top:1.2rem;opacity:0;animation:fadeUp 1s 0.9s forwards;padding:0 1rem}
+    .hero-date{margin-top:2rem;font-size:0.75rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--lilac);opacity:0;animation:fadeUp 1s 1.2s forwards}
+    
+    .hero-photo-wrap{margin-top:3rem;opacity:0;animation:fadeUp 1s 1.5s forwards;width:100%;max-width:560px}
+    .hero-eyes-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;width:100%}
+    .hero-eye-frame{aspect-ratio:3/4;border-radius:30px;overflow:hidden;border:3px solid rgba(232,164,192,0.3);box-shadow:0 20px 50px rgba(0,0,0,0.7);background:#120f22;transition:all 0.4s ease}
+    .hero-eye-frame:hover{transform:scale(1.04) translateY(-5px);border-color:var(--rose);box-shadow:0 25px 60px rgba(232,164,192,0.25)}
+    .hero-eye-frame img{width:100%;height:100%;object-fit:cover}
+
+    .scroll-hint{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:0.4rem;opacity:0;animation:fadeUp 1s 2s forwards}
+    .scroll-arrow{width:1px;height:36px;background:linear-gradient(to bottom,var(--lilac),transparent);animation:scrollPulse 2s ease-in-out infinite}
+    @keyframes scrollPulse{0%,100%{opacity:0.3}50%{opacity:1}}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+
+    /* DIVISORES */
+    .divider{display:flex;align-items:center;gap:1.5rem;margin:5rem 0 4rem;opacity:0.5}
+    .divider::before,.divider::after{content:'';flex:1;height:1px;background:linear-gradient(to right,transparent,var(--rose),transparent)}
+    .divider-icon{font-size:1.3rem;flex-shrink:0;animation:spinSlow 20s linear infinite}
+    @keyframes spinSlow{to{transform:rotate(360deg)}}
+
+    .section-eyebrow{text-align:center;font-size:0.7rem;letter-spacing:0.35em;text-transform:uppercase;color:var(--lilac);margin-bottom:3.5rem}
+
+    /* CONTADOR PREMIUM */
+    .counter-section{text-align:center;padding:2rem 0}
+    .counter-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;perspective:1000px}
+    @media(max-width:600px){.counter-grid{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:400px){.counter-grid{grid-template-columns:1fr}}
+    
+    .counter-card{background:rgba(255,255,255,0.02);border:1px solid rgba(232,164,192,0.1);border-radius:20px;padding:1.5rem 1rem;cursor:pointer;transition:all 0.6s cubic-bezier(0.4, 0, 0.2, 1);transform-style:preserve-3d;backdrop-filter:blur(5px)}
+    .counter-card:hover{border-color:rgba(232,164,192,0.4);background:rgba(255,255,255,0.04);transform:translateY(-5px)}
+    .counter-card.flipped {transform:rotateY(360deg) scale(1.05);border-color:var(--rose);background:rgba(232,164,192,0.08)}
+    
+    .counter-value{font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,5.5vw,3.2rem);font-weight:300;color:var(--white);line-height:1;display:block}
+    .counter-unit{font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--rose);margin-top:0.5rem;display:block}
+    .counter-card.highlight{grid-column:span 3;border-color:rgba(232,164,192,0.25);background:rgba(232,164,192,0.03)}
+    @media(max-width:600px){.counter-card.highlight{grid-column:span 2}}
+    @media(max-width:400px){.counter-card.highlight{grid-column:span 1}}
+    .counter-card.highlight .counter-value{font-size:clamp(2.2rem,8vw,4.2rem);color:var(--blush);font-weight:400}
+
+    /* LINHA DO TEMPO */
+    .timeline{position:relative;max-width:700px;margin:0 auto;padding:1rem 0}
+    .timeline::before{content:'';position:absolute;left:20px;top:0;bottom:0;width:2px;background:linear-gradient(to bottom, transparent, rgba(232,164,192,0.3) 15%, rgba(232,164,192,0.3) 85%, transparent)}
+    .timeline-item{position:relative;margin-bottom:3rem;padding-left:50px;cursor:pointer}
+    .timeline-dot{position:absolute;left:13px;top:6px;width:16px;height:16px;border-radius:50%;background:var(--night);border:3px solid var(--rose);box-shadow:0 0 15px var(--rose);transition:all 0.3s}
+    .timeline-item:hover .timeline-dot{transform:scale(1.4);background:var(--rose)}
+    .timeline-date{font-size:0.75rem;color:var(--lilac);font-weight:600;letter-spacing:0.1em;margin-bottom:0.3rem}
+    .timeline-title{font-family:'Cormorant Garamond',serif;font-size:1.35rem;color:var(--blush);margin-bottom:0.5rem}
+    .timeline-desc{font-size:0.88rem;color:rgba(255,255,255,0.7);line-height:1.6}
+
+    /* NOSSOS NÚMEROS */
+    .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;text-align:center}
+    @media(max-width:768px){.stats-grid{grid-template-columns:repeat(2,1fr)}}
+    .stat-box{background:rgba(232,164,192,0.02);border:1px solid rgba(232,164,192,0.08);padding:2rem 1rem;border-radius:16px;transition:all 0.3s}
+    .stat-box:hover{transform:translateY(-4px);border-color:rgba(232,164,192,0.3)}
+    .stat-num{font-family:'Cormorant Garamond',serif;font-size:2.5rem;color:var(--gold);display:block;margin-bottom:0.3rem;font-weight:600}
+    .stat-label{font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--blush)}
+
+    /* POLAROIDS EXPANDIDAS */
+    .polaroids{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:2rem;justify-items:center}
+    @media(min-width:600px){.polaroids{grid-template-columns:repeat(auto-fill,minmax(210px,1fr))}}
+    .polaroid{background:#fffef8;padding:0.7rem 0.7rem 2.8rem;box-shadow:0 12px 40px rgba(0,0,0,0.6);transition:transform 0.4s cubic-bezier(.34,1.56,.64,1);width:100%;max-width:250px;cursor:pointer}
+    .polaroid:nth-child(even){transform:rotate(3deg) translateY(10px)}
+    .polaroid:nth-child(odd){transform:rotate(-3deg)}
+    .polaroid:hover{transform:rotate(0deg) scale(1.08) translateY(-10px)!important;z-index:10;box-shadow:0 25px 65px rgba(232,164,192,0.35)}
+    .polaroid img{width:100%;aspect-ratio:3/4;object-fit:cover;object-position:top center;display:block}
+    .polaroid-caption{margin-top:0.7rem;text-align:center;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:0.85rem;color:#4a3b4a;line-height:1.3}
+
+    /* MURAL DE RECADOS FLUTUANTES */
+    .sticky-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+    @media(max-width:768px){.sticky-grid{grid-template-columns:1fr}}
+    .sticky-note{background:linear-gradient(135deg, #16122c, #0e0b1e);border-left:4px solid var(--rose);padding:1.5rem;border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,0.3);transition:transform 0.3s}
+    .sticky-note:hover{transform:scale(1.03) rotate(1deg)}
+    .sticky-title{font-size:0.75rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--lilac);margin-bottom:0.5rem;font-weight:600}
+    .sticky-text{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.15rem;color:var(--white);line-height:1.5}
+
+    /* OLHOS EMBAIXO CORRIGIDOS */
+    .eyes-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;max-width:540px;margin:0 auto}
+    .eye-card{border-radius:50%;overflow:hidden;aspect-ratio:1;border:3px solid rgba(232,164,192,0.2);box-shadow:0 0 50px rgba(232,164,192,0.15);transition:transform 0.4s;background:#000}
+    .eye-card:hover{transform:scale(1.06);border-color:var(--rose)}
+    .eye-card img{width:100%;height:100%;object-fit:cover;object-position:center 35%}
+    .eyes-caption{text-align:center;margin-top:2rem;font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--blush);font-size:1.15rem}
+
+    /* MENSAGEM FINAL */
+    .message-section{padding:5rem 1rem;text-align:center}
+    .message-heart{font-size:4rem;animation:heartbeat 1.4s ease-in-out infinite;display:inline-block;margin-bottom:2.5rem;cursor:pointer;user-select:none}
+    @keyframes heartbeat{0%,100%{transform:scale(1)}14%{transform:scale(1.25)}28%{transform:scale(1)}42%{transform:scale(1.18)}56%{transform:scale(1)}}
+    .message-text{font-family:'Cormorant Garamond',serif;font-size:clamp(1.1rem,2.8vw,1.45rem);line-height:2.2;color:var(--blush);font-style:italic;max-width:760px;margin:0 auto}
+    .message-sign{font-family:'Great Vibes',cursive;font-size:clamp(2.5rem,8vw,5rem);color:var(--rose);margin-top:2.5rem;text-shadow:0 0 30px rgba(232,164,192,0.4);cursor:pointer;display:inline-block;user-select:none}
+
+    footer{text-align:center;padding:4rem 1rem;font-size:0.65rem;letter-spacing:0.2em;color:rgba(255,255,255,0.2);text-transform:uppercase}
+
+    /* ESTILOS DO BLOCO DE NOTAS PERSONALIZADO */
+    .notepad-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(5, 4, 10, 0.85);
+      backdrop-filter: blur(8px);
+      z-index: 10000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+    .notepad-overlay.active {
+      display: flex;
+      opacity: 1;
+    }
+    .notepad-container {
+      background: #fffef2;
+      color: #2b251a;
+      width: 100%;
+      max-width: 500px;
+      border-radius: 16px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.5), inset 0 0 40px rgba(232,164,192,0.15);
+      border: 2px solid var(--rose);
+      padding: 2rem 1.5rem 1.5rem;
+      position: relative;
+      transform: scale(0.8) rotate(-2deg);
+      transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    .notepad-overlay.active .notepad-container {
+      transform: scale(1) rotate(0deg);
+    }
+    .notepad-close {
+      position: absolute;
+      top: 12px;
+      right: 15px;
+      background: none;
+      border: none;
+      font-size: 1.3rem;
+      cursor: pointer;
+      color: #8c7a6b;
+      transition: color 0.2s;
+    }
+    .notepad-close:hover { color: #cc4444; }
+    .notepad-header {
+      font-family: 'Great Vibes', cursive;
+      font-size: 2.2rem;
+      color: #aa6580;
+      text-align: center;
+      margin-bottom: 1rem;
+      border-bottom: 1px dashed rgba(232,164,192,0.6);
+      padding-bottom: 0.5rem;
+    }
+    .notepad-textarea {
+      width: 100%;
+      height: 240px;
+      background: transparent;
+      border: none;
+      resize: none;
+      outline: none;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem;
+      line-height: 1.8;
+      color: #383025;
+      font-style: italic;
+      background-image: linear-gradient(rgba(232,164,192,0.15) 1px, transparent 1px);
+      background-size: 100% 2.34rem;
+      padding-top: 0.2rem;
+    }
+    .notepad-footer {
+      text-align: right;
+      font-size: 0.75rem;
+      color: #8c7a6b;
+      margin-top: 1rem;
+      font-family: 'Inter', sans-serif;
+      letter-spacing: 0.05em;
+    }
+
+    /* ANIMAÇÃO EXPLOSÃO GLOBAL */
+    .burst-particle {
+      position: fixed;
+      pointer-events: none;
+      font-size: 1.8rem;
+      z-index: 9999;
+      animation: burstOut 0.9s cubic-bezier(0.1, 1, 0.2, 1) forwards;
+    }
+    @keyframes burstOut {
+      0% { transform: translate(0, 0) scale(1) rotate(0deg); opacity: 1; }
+      100% { transform: translate(var(--tx), var(--ty)) scale(0) rotate(450deg); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+  <canvas id="stars-canvas"></canvas>
+  <div class="hearts-bg" id="hearts-bg"></div>
+
+  <div class="notepad-overlay" id="notepad-overlay">
+    <div class="notepad-container">
+      <button class="notepad-close" id="notepad-close-btn">✕</button>
+      <div class="notepad-header">Meu Recado Especial...</div>
+      <textarea class="notepad-textarea" id="notepad-text" placeholder="Clique aqui para escrever o seu recado personalizado para ela... (O texto fica salvo automaticamente!)"></textarea>
+      <div class="notepad-footer">🤍 Salvo em tempo real</div>
+    </div>
+  </div>
+
+  <main>
+    <section class="hero">
+      <p class="hero-eyebrow">✦ três anos de puro amor · 16 · 06 · 2023 ✦</p>
+      
+      <h1 class="hero-title" id="interactive-title">
+        Minha Branca 🤍<span class="secret-star-trigger" id="secret-star" title="Um segredo escondido...">💫</span>
+      </h1>
+      
+      <p class="hero-subtitle">Rayssa, você transformou os meus dias na versão mais bonita da realidade</p>
+      <p class="hero-date">16 de Junho de 2023 — Para todo o sempre</p>
+      
+      <div class="hero-photo-wrap">
+        <div class="hero-eyes-grid">
+          <div class="hero-eye-frame">
+            <img src="foto_29.jpg" alt="Nossa História">
+          </div>
+          <div class="hero-eye-frame">
+            <img src="foto_21.jpg" alt="Nós Dois Juntos">
+          </div>
+        </div>
+      </div>
+
+      <div class="scroll-hint">
+        <div class="scroll-arrow"></div>
+      </div>
+    </section>
+
+    <div class="divider"><span class="divider-icon">✨</span></div>
+
+    <section class="counter-section">
+      <p class="section-eyebrow">Linha do Tempo em Tempo Real ✦</p>
+      <div class="counter-grid">
+        <div class="counter-card highlight">
+          <span class="counter-value" id="val-total-dias">-</span>
+          <span class="counter-unit">Dias Inesquecíveis Completos</span>
+        </div>
+        <div class="counter-card">
+          <span class="counter-value" id="val-anos">-</span>
+          <span class="counter-unit">Anos</span>
+        </div>
+        <div class="counter-card">
+          <span class="counter-value" id="val-meses">-</span>
+          <span class="counter-unit">Meses</span>
+        </div>
+        <div class="counter-card">
+          <span class="counter-value" id="val-dias">-</span>
+          <span class="counter-unit">Dias</span>
+        </div>
+        <div class="counter-card">
+          <span class="counter-value" id="val-horas">-</span>
+          <span class="counter-unit">Horas</span>
+        </div>
+        <div class="counter-card">
+          <span class="counter-value" id="val-minutos">-</span>
+          <span class="counter-unit">Minutos</span>
+        </div>
+        <div class="counter-card">
+          <span class="counter-value" id="val-segundos">-</span>
+          <span class="counter-unit">Segundos</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"><span class="divider-icon">🌸</span></div>
+
+    <section>
+      <p class="section-eyebrow">Nossos Grandes Marcos ✦</p>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <p class="timeline-date">16 DE JUNHO DE 2023</p>
+          <h3 class="timeline-title">O Começo do Nosso Infinito</h3>
+          <p class="timeline-desc">O dia exato em que os nossos caminhos se cruzaram e decidimos que não queríamos mais andar separados. Lembro como se fosse ontem, a sensação da barriga estar tensa, as mãos tremendo e frias, um zilhão de sensações, mas todas elas boas, desde lá, meus dias tem sido incriveis, jamais imagenei eles sem você presente neles minha vidinha.</p>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <p class="timeline-date">PRIMEIRO ANO JUNTOS</p>
+          <h3 class="timeline-title">Construindo Nossa Relação</h3>
+          <p class="timeline-desc">365 dias repletos de sorrisos descobertos, carinhos guardados e a absoluta certeza de que havíamos encontrado o aconchego um no outro.</p>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <p class="timeline-date">SEGUNDO ANO JUNTOS</p>
+          <h3 class="timeline-title">Um Tempinho já Que Nos Conhecemos</h3>
+          <p class="timeline-desc">Já estavámos juntos há 731 dias, ou melhor dizendo, 2 aninhos juntos, já tinha muita coisa que tinha rolado, boas, ruins, mas o importante é que permanecemos um com o outro, graças a Deus.</p>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <p class="timeline-date">HOJE</p>
+          <h3 class="timeline-title">Três Anos de Cumplicidade Perfeita</h3>
+          <p class="timeline-desc">Chegamos aqui mais maduros, mais unidos e infinitamente mais apaixonados. Olhar para você hoje traz o mesmo frio na barriga do primeiro dia, olho para trás e ainda não acredito que posso te chamar de minha, minha melhor amiga, minha namorada, minha futura esposa, sabe, você é uma mulher tão perfeita para mim, fico hiper, ultra, mega, viper feliz de estar contigo, em todos os momentos, me alegro em ver a pessoa que você vai se tornando a cada dia minha vidinha, você é uma mulher incrivel que merece o mundo inteirinho para ti.</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"><span class="divider-icon">📊</span></div>
+
+    <section>
+      <p class="section-eyebrow">Nossos Números Absurdos Juntos ✦</p>
+      <div class="stats-grid">
+        <div class="stat-box">
+          <span class="stat-num">∞</span>
+          <span class="stat-label">Beijos e Abraços</span>
+        </div>
+        <div class="stat-box">
+          <span class="stat-num">∞</span>
+          <span class="stat-label">Cafés e Encontros</span>
+        </div>
+        <div class="stat-box">
+          <span class="stat-num">99k</span>
+          <span class="stat-label">Gargalhadas Bobas</span>
+        </div>
+        <div class="stat-box">
+          <span class="stat-num">100%</span>
+          <span class="stat-label">De Certeza no Amor</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"><span class="divider-icon">📸</span></div>
+
+    <p class="section-eyebrow">Álbum de Recortes do Coração ✦</p>
+    <section class="polaroids" id="polaroids-section">
+      <div class="polaroid">
+        <img src="foto_22.jpg" alt="Momento Inicial">
+        <p class="polaroid-caption">Onde tudo ganhou sentido ✨</p>
+      </div>
+      <div class="polaroid">
+        <img src="foto_23.jpg" alt="Teu Sorriso">
+        <p class="polaroid-caption">A risada que ilumina qualquer dia escuro 🤍</p>
+      </div>
+      <div class="polaroid">
+        <img src="foto_24.jpg" alt="Cumplicidade">
+        <p class="polaroid-caption">Segurando a sua mão em qualquer jornada 🕊️</p>
+      </div>
+      <div class="polaroid">
+        <img src="foto_25.jpg" alt="Nosso Lugar">
+        <p class="polaroid-caption">Construindo o nosso universo particular 💞</p>
+      </div>
+    </section>
+
+    <div class="divider"><span class="divider-icon">👁️</span></div>
+
+    <section>
+      <p class="section-eyebrow">O Reflexo da Minha Felicidade ✦</p>
+      <div class="eyes-grid">
+        <div class="eye-card">
+          <img src="foto_28.jpg" alt="Olhar Dela">
+        </div>
+        <div class="eye-card">
+          <img src="foto_27.jpg" alt="Seu Olhar">
+        </div>
+      </div>
+      <p class="eyes-caption">Os olhos castanhos que me guiam, me acalmam e me lembram todos os dias o que é o amor.</p>
+    </section>
+
+    <div class="divider"><span class="divider-icon">✍️</span></div>
+
+    <section>
+      <p class="section-eyebrow">Pequenos Lembretes Diários ✦</p>
+      <div class="sticky-grid">
+        <div class="sticky-note">
+          <p class="sticky-title">Lembrete nº 1</p>
+          <p class="sticky-text">"Você fica irresistivelmente linda mesmo quando está brava ou com sono."</p>
+        </div>
+        <div class="sticky-note">
+          <p class="sticky-title">Lembrete nº 2</p>
+          <p class="sticky-text">"Seu abraço tem o superpoder de reiniciar o meu mundo e afastar qualquer cansaço."</p>
+        </div>
+        <div class="sticky-note">
+          <p class="sticky-title">Lembrete nº 3</p>
+          <p class="sticky-text">"Escolher você há 3 anos foi, e sempre será, o maior acerto da minha vida inteira."</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"><span class="divider-icon">✉️</span></div>
+
+    <section class="message-section">
+      <span class="message-heart" id="magic-heart-btn">❤️</span>
+      <p class="message-text">
+        Três anos se passaram desde que decidimos entrelaçar as nossas vidas, e olhar para trás me dá a certeza absoluta de que escolher você foi a melhor decisão que já tomei. Obrigado por ser minha companheira infalível, minha melhor amiga, minha maior torcedora e o amor da minha vida. Que venham as próximas décadas inteiras ao seu lado.
+      </p>
+      <p class="message-sign" id="text-te-amo">Eu te amo para todo sempre</p>
+    </section>
+
+  </main>
+
+  <footer>Feito com todo o amor do universo por você · 2026</footer>
+
+  <script>
+    // Fundo flutuante clássico
+    (function(){
+      const c = document.getElementById('hearts-bg'),
+            s = ['🤍','✨','💗','🌸','💞','🕊️','💫'];
+      function spawn(){
+        const el = document.createElement('span');
+        el.className = 'heart-particle';
+        el.textContent = s[Math.floor(Math.random()*s.length)];
+        const sz = Math.random()*1+0.7,
+              l = Math.random()*100,
+              d = Math.random()*12+10,
+              del = Math.random()*5;
+        el.style.cssText = `left:${l}%;font-size:${sz}rem;animation-duration:${d}s;animation-delay:${del}s;`;
+        c.appendChild(el);
+        setTimeout(() => el.remove(), (d+del)*1000);
+      }
+      for(let i=0; i<20; i++) spawn();
+      setInterval(spawn, 1500);
+    })();
+
+    // Lógica da Estrela Cadente e Bloco de Notas Secreto
+    (function(){
+      const star = document.getElementById('secret-star');
+      const overlay = document.getElementById('notepad-overlay');
+      const closeBtn = document.getElementById('notepad-close-btn');
+      const textarea = document.getElementById('notepad-text');
+
+      const savedNote = localStorage.getItem('branca_secret_note');
+      if (savedNote) {
+        textarea.value = savedNote;
+      }
+
+      star.addEventListener('click', (e) => {
+        e.stopPropagation();
+        overlay.classList.add('active');
+      });
+
+      closeBtn.addEventListener('click', () => {
+        overlay.classList.remove('active');
+      });
+
+      overlay.addEventListener('click', (e) => {
+        if(e.target === overlay) overlay.classList.remove('active');
+      });
+
+      textarea.addEventListener('input', () => {
+        localStorage.setItem('branca_secret_note', textarea.value);
+      });
+    })();
+
+    // Easter Egg 1: Renderizador e Animador Dinâmico do Título Principal
+    (function(){
+      const titleContainer = document.getElementById('interactive-title');
+      const star = document.getElementById('secret-star');
+      const text = "Minha Branca 🤍";
+      titleContainer.innerHTML = '';
+      
+      [...text].forEach(char => {
+        const span = document.createElement('span');
+        if(char === ' ') {
+          span.innerHTML = '&nbsp;';
+        } else {
+          span.textContent = char;
+        }
+        titleContainer.appendChild(span);
+      });
+      titleContainer.appendChild(star);
+    })();
+
+    // Função para criar explosões
+    function triggerExplosion(x, y, list, count = 25) {
+      for (let i = 0; i < count; i++) {
+        const p = document.createElement('div');
+        p.className = 'burst-particle';
+        p.textContent = list[Math.floor(Math.random() * list.length)];
+        p.style.left = x + 'px';
+        p.style.top = y + 'px';
+        
+        const angle = Math.random() * Math.PI * 2;
+        const distance = Math.random() * 220 + 80;
+        
+        p.style.setProperty('--tx', Math.cos(angle) * distance + 'px');
+        p.style.setProperty('--ty', Math.sin(angle) * distance + 'px');
+        
+        document.body.appendChild(p);
+        setTimeout(() => p.remove(), 900);
+      }
+    }
+
+    // Easter Egg 2: Super Explosão de Emojis no Coração Principal
+    (function(){
+      const heartBtn = document.getElementById('magic-heart-btn');
+      const items = ['💖', '❤️', '✨', '🤍', '🌸', '💞', '⭐', '🕊️', '🌹'];
+      heartBtn.addEventListener('click', (e) => {
+        triggerExplosion(e.clientX, e.clientY, items, 35);
+      });
+    })();
+
+    // Easter Egg 3: Explosão Secundária Gigante na Assinatura
+    (function(){
+      const txt = document.getElementById('text-te-amo');
+      const items = ['🤍', '✨', '👑', '💘', '💍', '🦄', '🌷', '🎀'];
+      txt.addEventListener('click', (e) => {
+        triggerExplosion(e.clientX, e.clientY, items, 40);
+      });
+    })();
+
+    // Easter Egg 4: Flip 3D no Contador
+    (function(){
+      const cards = document.querySelectorAll('.counter-card');
+      cards.forEach(card => {
+        card.addEventListener('click', () => {
+          card.classList.add('flipped');
+          
+          const rect = card.getBoundingClientRect();
+          const items = ['💗', '✨', '🤍', '💫'];
+          triggerExplosion(rect.left + rect.width/2, rect.top + rect.height/2, items, 8);
+
+          setTimeout(() => {
+            card.classList.remove('flipped');
+          }, 600);
+        });
+      });
+    })();
+
+    // Easter Egg 5: Chuva de Notas Musicais na Linha do Tempo
+    (function(){
+      const items = document.querySelectorAll('.timeline-item');
+      const notes = ['🎵', '🎶', '♩', '♪', '💞'];
+      items.forEach(item => {
+        item.addEventListener('click', (e) => {
+          triggerExplosion(e.clientX, e.clientY, notes, 12);
+        });
+      });
+    })();
+
+    // Trilha de Estrelas nas Polaroids
+    (function(){
+      const section = document.getElementById('polaroids-section');
+      section.addEventListener('mousemove', (e) => {
+        if (Math.random() > 0.18) return;
+        const sparkle = document.createElement('span');
+        sparkle.textContent = '✨';
+        sparkle.style.position = 'fixed';
+        sparkle.style.left = e.clientX + 'px';
+        sparkle.style.top = e.clientY + 'px';
+        sparkle.style.fontSize = Math.random() * 0.9 + 0.6 + 'rem';
+        sparkle.style.pointerEvents = 'none';
+        sparkle.style.zIndex = '100';
+        sparkle.style.transition = 'all 0.6s cubic-bezier(0.1, 0.8, 0.3, 1)';
+        
+        document.body.appendChild(sparkle);
+        setTimeout(() => {
+          sparkle.style.transform = `translate(${(Math.random() - 0.5) * 50}px, -70px) scale(0)`;
+          sparkle.style.opacity = '0';
+        }, 10);
+        setTimeout(() => sparkle.remove(), 600);
+      });
+    })();
+
+    // TEMPORIZADOR PRECISO EM TEMPO REAL
+    (function(){
+      const START = new Date('2023-06-16T00:00:00');
+
+      function updateCounter() {
+        const now = new Date();
+        const diffMs = now - START;
+
+        const totalSegundos = Math.floor(diffMs / 1000);
+        const totalMinutos = Math.floor(totalSegundos / 60);
+        const totalHoras = Math.floor(totalMinutos / 60);
+        const totalDias = Math.floor(totalHoras / 24);
+
+        let anos = now.getFullYear() - START.getFullYear();
+        let meses = now.getMonth() - START.getMonth();
+        let dias = now.getDate() - START.getDate();
+
+        if (dias < 0) {
+          meses--;
+          const dataMesAnterior = new Date(now.getFullYear(), now.getMonth(), 0);
+          dias += dataMesAnterior.getDate();
+        }
+
+        if (meses < 0) {
+          anos--;
+          meses += 12;
+        }
+
+        const horas = now.getHours();
+        const minutos = now.getMinutes();
+        const segundos = now.getSeconds();
+
+        document.getElementById('val-total-dias').textContent = totalDias.toLocaleString('pt-BR');
+        document.getElementById('val-anos').textContent = anos;
+        document.getElementById('val-meses').textContent = meses;
+        document.getElementById('val-dias').textContent = dias;
+        document.getElementById('val-horas').textContent = horas.toString().padStart(2, '0');
+        document.getElementById('val-minutos').textContent = minutos.toString().padStart(2, '0');
+        document.getElementById('val-segundos').textContent = segundos.toString().padStart(2, '0');
+      }
+
+      updateCounter();
+      setInterval(updateCounter, 1000);
+    })();
+
+    // Estrelas de fundo no Canvas
+    (function(){
+      const canvas = document.getElementById('stars-canvas');
+      const ctx = canvas.getContext('2d');
+      let w = canvas.width = window.innerWidth;
+      let h = canvas.height = window.innerHeight;
+      const stars = [];
+
+      window.addEventListener('resize', () => {
+        w = canvas.width = window.innerWidth;
+        h = canvas.height = window.innerHeight;
+      });
+
+      for(let i=0; i<70; i++) {
+        stars.push({
+          x: Math.random()*w,
+          y: Math.random()*h,
+          r: Math.random()*1.2+0.4,
+          o: Math.random(),
+          s: Math.random()*0.015+0.004
+        });
+      }
+
+      function draw() {
+        ctx.clearRect(0,0,w,h);
+        stars.forEach(st => {
+          st.o += st.s;
+          if(st.o > 1 || st.o < 0) st.s = -st.s;
+          ctx.beginPath();
+          ctx.arc(st.x, st.y, st.r, 0, Math.PI*2);
+          ctx.fillStyle = `rgba(245, 198, 216, ${st.o})`;
+          ctx.fill();
+        });
+        requestAnimationFrame(draw);
+      }
+      draw();
+    })();
+  </script>
+</body>
+</html>
